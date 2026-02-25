@@ -1,0 +1,33 @@
+SET TERM ^ ;
+
+create or alter procedure SP_INSERIR_LOTE (
+    PDESCRICAO varchar(100),
+    PDATA_ENTRADA date,
+    PQTD_INICIAL integer)
+as
+declare variable V_ID_LOTE integer;
+BEGIN
+    IF (PQTD_INICIAL <= 0) THEN
+        EXCEPTION EX_QTD_INVALIDA;
+
+    V_ID_LOTE = GEN_ID(GEN_TAB_LOTE_AVES_ID, 1);
+
+    INSERT INTO TAB_LOTE_AVES (
+        ID_LOTE,
+        DESCRICAO,
+        DATA_ENTRADA,
+        QUANTIDADE_INICIAL
+    )
+    VALUES (
+        :V_ID_LOTE,
+        :PDESCRICAO,
+        :PDATA_ENTRADA,
+        :PQTD_INICIAL
+    );
+END^
+
+SET TERM ; ^
+
+GRANT INSERT ON TAB_LOTE_AVES TO PROCEDURE SP_INSERIR_LOTE;
+
+GRANT EXECUTE ON PROCEDURE SP_INSERIR_LOTE TO SYSDBA;
