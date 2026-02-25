@@ -138,6 +138,7 @@
         <DCCReference Include="src\models\untModelLote.pas"/>
         <DCCReference Include="src\models\untModelPesagem.pas"/>
         <DCCReference Include="src\models\untModelMortalidade.pas"/>
+        <DCCReference Include="src\units\Vcl.Loading.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
