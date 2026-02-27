@@ -121,6 +121,7 @@ object frmViewMain: TfrmViewMain
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
+        OnClick = sBtnDeleteClick
         ExplicitLeft = 72
         ExplicitTop = 8
         ExplicitWidth = 23

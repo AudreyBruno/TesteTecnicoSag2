@@ -2,8 +2,8 @@ unit untDAOLote;
 
 interface
 
-uses FireDAC.Comp.Client, FireDAC.DApt, System.SysUtils, untDAOBase,
-  untModelLote;
+uses FireDAC.Comp.Client, FireDAC.DApt, System.SysUtils, FireDAC.Stan.Error,
+  untDAOBase, untModelLote;
 
 type
   TDAOLote = class(TDAOBase<TLote>)
@@ -11,6 +11,7 @@ type
     function getAll(AValue: string; out erro: string): TFDQuery; override;
     function getById(AId: Integer; out erro: string): TLote; override;
     function save(AEntity: TLote; out erro: string): Boolean; override;
+    function deleteById(AId: Integer; out erro: string): Boolean; override;
   end;
 
 implementation
@@ -69,7 +70,7 @@ begin
     sp := TFDStoredProc.Create(nil);
     try
       sp.Connection := FConn;
-      sp.StoredProcName := 'SP_INSERIR_LOTE';
+      sp.StoredProcName := 'SP_INSERIR_ALTERAR_LOTE';
       sp.Prepare;
 
       if AEntity.ID > 0 then
@@ -91,7 +92,36 @@ begin
   except
     on ex: exception do
     begin
-      erro := 'Erro ao salvar lotes: ' + ex.Message;
+      erro := 'Erro ao salvar lote: ' + ex.Message;
+    end;
+  end;
+end;
+
+function TDAOLote.deleteById(AId: Integer; out erro: string): Boolean;
+var
+  sp: TFDStoredProc;
+begin
+  Result := False;
+
+  try
+    sp := TFDStoredProc.Create(nil);
+    try
+      sp.Connection := FConn;
+      sp.StoredProcName := 'SP_EXCLUIR_LOTE';
+      sp.Prepare;
+
+      sp.Params.ParamByName('PID_LOTE').AsInteger := AId;
+
+      sp.ExecProc;
+    finally
+      sp.Free;
+    end;
+
+    Result := True;
+  except
+    on ex: exception do
+    begin
+      erro := 'Erro ao excluir lote: ' + ex.Message;
     end;
   end;
 end;

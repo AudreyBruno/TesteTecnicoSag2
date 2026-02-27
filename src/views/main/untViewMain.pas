@@ -42,16 +42,20 @@ type
     procedure DBGridDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure sBtnEditClick(Sender: TObject);
+    procedure sBtnDeleteClick(Sender: TObject);
   private
     procedure OpenEditLote(id_lote: Integer);
     procedure getData;
     procedure adjustTitles(DataSet: TDataSet);
     procedure TThreadTerminate(Sender: TObject);
+    procedure TThreadTerminateDelete(Sender: TObject);
+    procedure deleteData;
   public
   end;
 
 var
   frmViewMain: TfrmViewMain;
+  FId_lote: Integer;
 
 implementation
 
@@ -70,6 +74,20 @@ begin
       ShowMessage(Exception(TThread(Sender).FatalException).Message);
       Exit;
     end;
+end;
+
+procedure TfrmViewMain.TThreadTerminateDelete(Sender: TObject);
+begin
+  TLoading.Hide;
+
+  if Sender is TThread then
+    if Assigned(TThread(Sender).FatalException) then
+    begin
+      ShowMessage(Exception(TThread(Sender).FatalException).Message);
+      Exit;
+    end;
+
+  getData;
 end;
 
 procedure TfrmViewMain.adjustTitles(DataSet: TDataSet);
@@ -103,6 +121,23 @@ begin
     DBGrid.Canvas.Brush.Color := clRed;
 
   DBGrid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+end;
+
+procedure TfrmViewMain.deleteData;
+var
+  DAO: TDAOLote;
+  erro: string;
+begin
+  DAO := TDAOLote.Create(DMMain.FDConn);
+
+  try
+    if not DAO.deleteById(FId_lote, erro) then
+    begin
+      raise Exception.Create(erro);
+    end;
+  finally
+    DAO.Free;
+  end;
 end;
 
 procedure TfrmViewMain.editMortalidadeClick(Sender: TObject);
@@ -166,12 +201,21 @@ begin
   OpenEditLote(0);
 end;
 
-procedure TfrmViewMain.sBtnEditClick(Sender: TObject);
-var
-  id_lote: Integer;
+procedure TfrmViewMain.sBtnDeleteClick(Sender: TObject);
 begin
-  id_lote := DBGrid.DataSource.DataSet.FieldByName('ID_LOTE').AsInteger;
-  OpenEditLote(id_lote);
+  FId_lote := DBGrid.DataSource.DataSet.FieldByName('ID_LOTE').AsInteger;
+  if MessageDlg('Realmente deseja excluir o lote ' + IntToStr(FId_lote) + '?',
+    mtConfirmation, [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0) = mrYes then
+  begin
+    TLoading.Show;
+    TLoading.ExecuteThread(deleteData, TThreadTerminateDelete);
+  end;
+end;
+
+procedure TfrmViewMain.sBtnEditClick(Sender: TObject);
+begin
+  FId_lote := DBGrid.DataSource.DataSet.FieldByName('ID_LOTE').AsInteger;
+  OpenEditLote(FId_lote);
 end;
 
 procedure TfrmViewMain.sBtnFilterClick(Sender: TObject);

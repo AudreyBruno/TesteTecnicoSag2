@@ -1,0 +1,26 @@
+SET TERM ^ ;
+
+create or alter procedure SP_EXCLUIR_LOTE (
+    PID_LOTE integer
+)
+as
+begin
+    if (PID_LOTE is null) then
+        exception EX_REGISTRO_NAO_ENCONTRADO;
+
+    delete from TAB_LOTE_AVES
+    where ID_LOTE = :PID_LOTE;
+
+    if (row_count = 0) then
+        exception EX_REGISTRO_NAO_ENCONTRADO;
+end^
+
+SET TERM ; ^
+
+/* Following GRANT statetements are generated automatically */
+
+GRANT SELECT,DELETE ON TAB_LOTE_AVES TO PROCEDURE SP_EXCLUIR_LOTE;
+
+/* Existing privileges on this procedure */
+
+GRANT EXECUTE ON PROCEDURE SP_EXCLUIR_LOTE TO SYSDBA;

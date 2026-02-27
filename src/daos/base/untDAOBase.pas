@@ -14,6 +14,7 @@ type
       virtual; abstract;
     function getById(AId: Integer; out erro: string): T; virtual; abstract;
     function save(AEntity: T; out erro: string): Boolean; virtual; abstract;
+    function deleteById(AId: Integer; out erro: string): Boolean; virtual; abstract;
   end;
 
 implementation
