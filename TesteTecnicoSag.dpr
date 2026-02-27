@@ -11,7 +11,8 @@ uses
   Vcl.Navigation in 'src\units\Vcl.Navigation.pas',
   untViewEditLote in 'src\views\lote\untViewEditLote.pas' {frmViewEditLote},
   untViewEditMortalidade in 'src\views\mortalidade\untViewEditMortalidade.pas' {frmViewEditMortalidade},
-  untViewEditPesagem in 'src\views\pesagem\untViewEditPesagem.pas' {frmViewEditPesagem};
+  untViewEditPesagem in 'src\views\pesagem\untViewEditPesagem.pas' {frmViewEditPesagem},
+  untDAOBase in 'src\daos\base\untDAOBase.pas';
 
 {$R *.res}
 

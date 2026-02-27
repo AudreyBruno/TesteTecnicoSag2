@@ -155,6 +155,7 @@
             <Form>frmViewEditPesagem</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\daos\base\untDAOBase.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
