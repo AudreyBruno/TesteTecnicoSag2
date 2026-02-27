@@ -41,10 +41,12 @@ type
     procedure sBtnFilterClick(Sender: TObject);
     procedure DBGridDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure sBtnEditClick(Sender: TObject);
   private
     procedure OpenEditLote(id_lote: Integer);
     procedure getData;
     procedure adjustTitles(DataSet: TDataSet);
+    procedure TThreadTerminate(Sender: TObject);
   public
   end;
 
@@ -57,6 +59,18 @@ implementation
 
 uses Vcl.Loading, Vcl.Navigation, untViewEditLote, untViewEditMortalidade,
   untViewEditPesagem, untDAOLote, DataModule.Main, utils;
+
+procedure TfrmViewMain.TThreadTerminate(Sender: TObject);
+begin
+  TLoading.Hide;
+
+  if Sender is TThread then
+    if Assigned(TThread(Sender).FatalException) then
+    begin
+      ShowMessage(Exception(TThread(Sender).FatalException).Message);
+      Exit;
+    end;
+end;
 
 procedure TfrmViewMain.adjustTitles(DataSet: TDataSet);
 var
@@ -94,6 +108,7 @@ end;
 procedure TfrmViewMain.editMortalidadeClick(Sender: TObject);
 begin
   TNavigation.ParamInt := 1;
+  TNavigation.ExecuteOnClose := getData;
   TNavigation.OpenModal(TfrmViewEditMortalidade, frmViewEditMortalidade,
     frmViewMain);
 end;
@@ -101,6 +116,7 @@ end;
 procedure TfrmViewMain.editPesagemClick(Sender: TObject);
 begin
   TNavigation.ParamInt := 1;
+  TNavigation.ExecuteOnClose := getData;
   TNavigation.OpenModal(TfrmViewEditPesagem, frmViewEditPesagem, frmViewMain);
 end;
 
@@ -115,33 +131,47 @@ var
   qry: TFDQuery;
   erro: string;
 begin
-  DAO := TDAOLote.Create(DMMain.FDConn);
+  TLoading.Show();
 
-  try
-    qry := DAO.getAll(edtFilter.Text, erro);
-
-    if erro <> '' then
+  TLoading.ExecuteThread(
+    procedure
     begin
-      ShowMessage(erro);
-      Exit;
-    end;
+      DAO := TDAOLote.Create(DMMain.FDConn);
 
-    DataSource.DataSet := qry;
-    adjustTitles(qry);
-  finally
-    DAO.Free;
-  end;
+      try
+        qry := DAO.getAll(edtFilter.Text, erro);
+
+        if erro <> '' then
+        begin
+          raise Exception.Create(erro);
+        end;
+
+        DataSource.DataSet := qry;
+        adjustTitles(qry);
+      finally
+        DAO.Free;
+      end;
+    end, TThreadTerminate);
 end;
 
 procedure TfrmViewMain.OpenEditLote(id_lote: Integer);
 begin
   TNavigation.ParamInt := id_lote;
+  TNavigation.ExecuteOnClose := getData;
   TNavigation.OpenModal(TfrmViewEditLote, frmViewEditLote, frmViewMain);
 end;
 
 procedure TfrmViewMain.sBtnAddClick(Sender: TObject);
 begin
   OpenEditLote(0);
+end;
+
+procedure TfrmViewMain.sBtnEditClick(Sender: TObject);
+var
+  id_lote: Integer;
+begin
+  id_lote := DBGrid.DataSource.DataSet.FieldByName('ID_LOTE').AsInteger;
+  OpenEditLote(id_lote);
 end;
 
 procedure TfrmViewMain.sBtnFilterClick(Sender: TObject);

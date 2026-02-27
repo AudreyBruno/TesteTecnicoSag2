@@ -5,19 +5,22 @@ interface
 uses FireDAC.Comp.Client, FireDAC.DApt;
 
 type
-  TDAOBase = class
+  TDAOBase<T: class> = class
   protected
     FConn: TFDConnection;
   public
     constructor Create(AConn: TFDConnection);
-    function getAll(ADescription: string; out erro: string): TFDQuery; virtual; abstract;
+    function getAll(AValue: string; out erro: string): TFDQuery;
+      virtual; abstract;
+    function getById(AId: Integer; out erro: string): T; virtual; abstract;
+    function save(AEntity: T; out erro: string): Boolean; virtual; abstract;
   end;
 
 implementation
 
 { TDAOBase }
 
-constructor TDAOBase.Create(AConn: TFDConnection);
+constructor TDAOBase<T>.Create(AConn: TFDConnection);
 begin
   FConn := AConn;
 end;

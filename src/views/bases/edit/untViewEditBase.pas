@@ -48,6 +48,10 @@ begin
       ShowMessage(Exception(TThread(Sender).FatalException).Message);
       Exit;
     end;
+
+  ShowMessage('Salvo com sucesso!');
+
+  TNavigation.Close(Self);
 end;
 
 procedure TfrmViewEditBase.FormClose(Sender: TObject; var Action: TCloseAction);
