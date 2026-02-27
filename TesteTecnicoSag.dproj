@@ -156,6 +156,13 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="src\daos\base\untDAOBase.pas"/>
+        <DCCReference Include="src\daos\lote\untDAOLote.pas"/>
+        <DCCReference Include="src\datamodule\DataModule.Main.pas">
+            <Form>DMMain</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\units\utils.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

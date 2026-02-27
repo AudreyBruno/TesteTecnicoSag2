@@ -12,15 +12,17 @@ uses
   untViewEditLote in 'src\views\lote\untViewEditLote.pas' {frmViewEditLote},
   untViewEditMortalidade in 'src\views\mortalidade\untViewEditMortalidade.pas' {frmViewEditMortalidade},
   untViewEditPesagem in 'src\views\pesagem\untViewEditPesagem.pas' {frmViewEditPesagem},
-  untDAOBase in 'src\daos\base\untDAOBase.pas';
+  untDAOBase in 'src\daos\base\untDAOBase.pas',
+  untDAOLote in 'src\daos\lote\untDAOLote.pas',
+  DataModule.Main in 'src\datamodule\DataModule.Main.pas' {DMMain: TDataModule},
+  utils in 'src\units\utils.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TDMMain, DMMain);
   Application.CreateForm(TfrmViewMain, frmViewMain);
-  Application.CreateForm(TfrmViewEditMortalidade, frmViewEditMortalidade);
-  Application.CreateForm(TfrmViewEditPesagem, frmViewEditPesagem);
   Application.Run;
 end.

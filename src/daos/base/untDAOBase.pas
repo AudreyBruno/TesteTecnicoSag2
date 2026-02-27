@@ -2,7 +2,7 @@ unit untDAOBase;
 
 interface
 
-uses FireDAC.Comp.Client;
+uses FireDAC.Comp.Client, FireDAC.DApt;
 
 type
   TDAOBase = class
@@ -10,6 +10,7 @@ type
     FConn: TFDConnection;
   public
     constructor Create(AConn: TFDConnection);
+    function getAll(ADescription: string; out erro: string): TFDQuery; virtual; abstract;
   end;
 
 implementation

@@ -3,7 +3,7 @@ object frmViewMain: TfrmViewMain
   Top = 0
   Caption = 'Principal'
   ClientHeight = 561
-  ClientWidth = 984
+  ClientWidth = 1009
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,12 +11,13 @@ object frmViewMain: TfrmViewMain
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnShow = FormShow
   TextHeight = 15
   object Label1: TLabel
     AlignWithMargins = True
     Left = 3
-    Top = 83
-    Width = 978
+    Top = 78
+    Width = 1003
     Height = 15
     Align = alTop
     Caption = 
@@ -30,13 +31,36 @@ object frmViewMain: TfrmViewMain
     Font.Style = []
     ParentColor = False
     ParentFont = False
+    ExplicitTop = 83
     ExplicitWidth = 395
+  end
+  object Label2: TLabel
+    AlignWithMargins = True
+    Left = 8
+    Top = 491
+    Width = 993
+    Height = 20
+    Margins.Left = 8
+    Margins.Top = 0
+    Margins.Right = 8
+    Margins.Bottom = 0
+    Align = alBottom
+    Caption = 'Saude do Lote'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = 20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    ExplicitLeft = 0
+    ExplicitTop = 0
+    ExplicitWidth = 96
   end
   object pHeader: TPanel
     Left = 0
     Top = 0
-    Width = 984
-    Height = 80
+    Width = 1009
+    Height = 75
     Align = alTop
     BevelOuter = bvNone
     Color = 16051947
@@ -47,7 +71,7 @@ object frmViewMain: TfrmViewMain
       Left = 8
       Top = 15
       Width = 100
-      Height = 50
+      Height = 45
       Margins.Left = 8
       Margins.Top = 15
       Margins.Right = 0
@@ -63,13 +87,14 @@ object frmViewMain: TfrmViewMain
       ParentFont = False
       Layout = tlCenter
       ExplicitLeft = 0
+      ExplicitHeight = 50
     end
     object pBtnDelete: TPanel
       AlignWithMargins = True
-      Left = 859
+      Left = 884
       Top = 20
       Width = 110
-      Height = 40
+      Height = 35
       Margins.Left = 0
       Margins.Top = 20
       Margins.Right = 15
@@ -79,11 +104,13 @@ object frmViewMain: TfrmViewMain
       Color = 6906591
       ParentBackground = False
       TabOrder = 0
+      ExplicitLeft = 859
+      ExplicitHeight = 40
       object sBtnDelete: TSpeedButton
         Left = 0
         Top = 0
         Width = 110
-        Height = 40
+        Height = 35
         Cursor = crHandPoint
         Align = alClient
         Caption = 'Excluir'
@@ -102,10 +129,10 @@ object frmViewMain: TfrmViewMain
     end
     object pBtnAdd: TPanel
       AlignWithMargins = True
-      Left = 609
+      Left = 634
       Top = 20
       Width = 110
-      Height = 40
+      Height = 35
       Margins.Left = 0
       Margins.Top = 20
       Margins.Right = 15
@@ -115,11 +142,13 @@ object frmViewMain: TfrmViewMain
       Color = 16475988
       ParentBackground = False
       TabOrder = 1
+      ExplicitLeft = 609
+      ExplicitHeight = 40
       object sBtnAdd: TSpeedButton
         Left = 0
         Top = 0
         Width = 110
-        Height = 40
+        Height = 35
         Cursor = crHandPoint
         Align = alClient
         Caption = 'Adicionar'
@@ -139,10 +168,10 @@ object frmViewMain: TfrmViewMain
     end
     object pBtnEdit: TPanel
       AlignWithMargins = True
-      Left = 734
+      Left = 759
       Top = 20
       Width = 110
-      Height = 40
+      Height = 35
       Margins.Left = 0
       Margins.Top = 20
       Margins.Right = 15
@@ -152,11 +181,13 @@ object frmViewMain: TfrmViewMain
       Color = 16475988
       ParentBackground = False
       TabOrder = 2
+      ExplicitLeft = 734
+      ExplicitHeight = 40
       object sBtnEdit: TSpeedButton
         Left = 0
         Top = 0
         Width = 110
-        Height = 40
+        Height = 35
         Cursor = crHandPoint
         Align = alClient
         Caption = 'Editar'
@@ -177,8 +208,8 @@ object frmViewMain: TfrmViewMain
       AlignWithMargins = True
       Left = 108
       Top = 0
-      Width = 456
-      Height = 80
+      Width = 481
+      Height = 75
       Margins.Left = 0
       Margins.Top = 0
       Margins.Right = 45
@@ -188,12 +219,14 @@ object frmViewMain: TfrmViewMain
       Color = 16051947
       ParentBackground = False
       TabOrder = 3
+      ExplicitWidth = 456
+      ExplicitHeight = 80
       object pBtnFilter: TPanel
         AlignWithMargins = True
-        Left = 331
+        Left = 356
         Top = 20
         Width = 110
-        Height = 40
+        Height = 35
         Margins.Left = 0
         Margins.Top = 20
         Margins.Right = 15
@@ -203,11 +236,13 @@ object frmViewMain: TfrmViewMain
         Color = 16475988
         ParentBackground = False
         TabOrder = 0
+        ExplicitLeft = 331
+        ExplicitHeight = 40
         object sBtnFilter: TSpeedButton
           Left = 0
           Top = 0
           Width = 110
-          Height = 40
+          Height = 35
           Cursor = crHandPoint
           Align = alClient
           Caption = 'Filtrar'
@@ -218,6 +253,7 @@ object frmViewMain: TfrmViewMain
           Font.Name = 'Segoe UI'
           Font.Style = []
           ParentFont = False
+          OnClick = sBtnFilterClick
           ExplicitLeft = 72
           ExplicitTop = 8
           ExplicitWidth = 23
@@ -228,8 +264,8 @@ object frmViewMain: TfrmViewMain
         AlignWithMargins = True
         Left = 0
         Top = 20
-        Width = 331
-        Height = 40
+        Width = 356
+        Height = 35
         Margins.Left = 0
         Margins.Top = 20
         Margins.Right = 0
@@ -242,15 +278,16 @@ object frmViewMain: TfrmViewMain
         Font.Style = []
         ParentFont = False
         TabOrder = 1
+        ExplicitWidth = 331
         ExplicitHeight = 38
       end
     end
   end
   object DBGrid: TDBGrid
     Left = 0
-    Top = 101
-    Width = 984
-    Height = 460
+    Top = 96
+    Width = 1009
+    Height = 395
     Align = alClient
     DataSource = DataSource
     PopupMenu = PopupMenu
@@ -260,6 +297,89 @@ object frmViewMain: TfrmViewMain
     TitleFont.Height = -12
     TitleFont.Name = 'Segoe UI'
     TitleFont.Style = []
+    OnDrawColumnCell = DBGridDrawColumnCell
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 511
+    Width = 1009
+    Height = 50
+    Align = alBottom
+    BevelOuter = bvNone
+    Color = 16051947
+    ParentBackground = False
+    TabOrder = 2
+    ExplicitTop = 517
+    object pWhite: TPanel
+      AlignWithMargins = True
+      Left = 8
+      Top = 8
+      Width = 100
+      Height = 34
+      Margins.Left = 8
+      Margins.Top = 8
+      Margins.Right = 8
+      Margins.Bottom = 8
+      Align = alLeft
+      Caption = 'Nenhuma Morte'
+      Color = clWhite
+      ParentBackground = False
+      TabOrder = 0
+    end
+    object pGreen: TPanel
+      AlignWithMargins = True
+      Left = 124
+      Top = 8
+      Width = 100
+      Height = 34
+      Margins.Left = 8
+      Margins.Top = 8
+      Margins.Right = 8
+      Margins.Bottom = 8
+      Align = alLeft
+      Caption = 'Menos de 5%'
+      Color = clGreen
+      ParentBackground = False
+      TabOrder = 1
+      ExplicitLeft = 240
+      ExplicitTop = 11
+    end
+    object pYellow: TPanel
+      AlignWithMargins = True
+      Left = 240
+      Top = 8
+      Width = 100
+      Height = 34
+      Margins.Left = 8
+      Margins.Top = 8
+      Margins.Right = 8
+      Margins.Bottom = 8
+      Align = alLeft
+      Caption = 'Entre 5% e 10%'
+      Color = clYellow
+      ParentBackground = False
+      TabOrder = 2
+      ExplicitLeft = 472
+      ExplicitTop = 11
+    end
+    object pRed: TPanel
+      AlignWithMargins = True
+      Left = 356
+      Top = 8
+      Width = 100
+      Height = 34
+      Margins.Left = 8
+      Margins.Top = 8
+      Margins.Right = 8
+      Margins.Bottom = 8
+      Align = alLeft
+      Caption = 'Mais de 10%'
+      Color = clRed
+      ParentBackground = False
+      TabOrder = 3
+      ExplicitLeft = 504
+      ExplicitTop = 11
+    end
   end
   object DataSource: TDataSource
     Left = 488
