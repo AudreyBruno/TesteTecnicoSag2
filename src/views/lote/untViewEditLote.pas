@@ -9,7 +9,7 @@ uses
   Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls;
 
 type
-  TfrmViewEditLote = class(TfrmViewCadBase)
+  TfrmViewEditLote = class(TfrmViewEditBase)
     Label1: TLabel;
     edtDescricao: TEdit;
     Label2: TLabel;

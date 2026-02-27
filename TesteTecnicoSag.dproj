@@ -140,11 +140,19 @@
         <DCCReference Include="src\models\untModelMortalidade.pas"/>
         <DCCReference Include="src\units\Vcl.Loading.pas"/>
         <DCCReference Include="src\views\bases\edit\untViewEditBase.pas">
-            <Form>frmViewCadBase</Form>
+            <Form>frmViewEditBase</Form>
         </DCCReference>
         <DCCReference Include="src\units\Vcl.Navigation.pas"/>
         <DCCReference Include="src\views\lote\untViewEditLote.pas">
             <Form>frmViewEditLote</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\views\mortalidade\untViewEditMortalidade.pas">
+            <Form>frmViewEditMortalidade</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\views\pesagem\untViewEditPesagem.pas">
+            <Form>frmViewEditPesagem</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">

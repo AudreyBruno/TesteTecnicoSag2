@@ -268,11 +268,13 @@ object frmViewMain: TfrmViewMain
   object PopupMenu: TPopupMenu
     Left = 648
     Top = 200
-    object Peso1: TMenuItem
-      Caption = 'Cadastrar Pesagem'
+    object editPesagem: TMenuItem
+      Caption = 'Pesagem'
+      OnClick = editPesagemClick
     end
-    object Mortes1: TMenuItem
-      Caption = 'Cadastrar Mortes'
+    object editMortalidade: TMenuItem
+      Caption = 'Mortalidade'
+      OnClick = editMortalidadeClick
     end
   end
 end

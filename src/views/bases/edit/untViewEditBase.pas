@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons;
 
 type
-  TfrmViewCadBase = class(TForm)
+  TfrmViewEditBase = class(TForm)
     pFooter: TPanel;
     pBtnCancel: TPanel;
     sBtnCancel: TSpeedButton;
@@ -28,7 +28,7 @@ type
   end;
 
 var
-  frmViewCadBase: TfrmViewCadBase;
+  frmViewEditBase: TfrmViewEditBase;
 
 implementation
 
@@ -38,7 +38,7 @@ uses Vcl.Loading, Vcl.Navigation;
 
 { TfrmViewCadBase }
 
-procedure TfrmViewCadBase.TThreadTerminate(Sender: TObject);
+procedure TfrmViewEditBase.TThreadTerminate(Sender: TObject);
 begin
   TLoading.Hide;
 
@@ -50,12 +50,12 @@ begin
     end;
 end;
 
-procedure TfrmViewCadBase.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmViewEditBase.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := caFree;
 end;
 
-procedure TfrmViewCadBase.FormKeyDown(Sender: TObject; var Key: Word;
+procedure TfrmViewEditBase.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   case Key of
@@ -75,18 +75,18 @@ begin
   end;
 end;
 
-procedure TfrmViewCadBase.FormKeyPress(Sender: TObject; var Key: Char);
+procedure TfrmViewEditBase.FormKeyPress(Sender: TObject; var Key: Char);
 begin
   if Key = #27 then
     Key := #0;
 end;
 
-procedure TfrmViewCadBase.sBtnCancelClick(Sender: TObject);
+procedure TfrmViewEditBase.sBtnCancelClick(Sender: TObject);
 begin
   TNavigation.Close(Self);
 end;
 
-procedure TfrmViewCadBase.sBtnSaveClick(Sender: TObject);
+procedure TfrmViewEditBase.sBtnSaveClick(Sender: TObject);
 begin
   TLoading.Show();
 

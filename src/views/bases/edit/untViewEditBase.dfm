@@ -1,8 +1,8 @@
-object frmViewCadBase: TfrmViewCadBase
+object frmViewEditBase: TfrmViewEditBase
   Left = 0
   Top = 0
   BorderStyle = bsNone
-  Caption = 'frmViewCadBase'
+  Caption = 'frmViewEditBase'
   ClientHeight = 350
   ClientWidth = 460
   Color = clWhite

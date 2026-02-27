@@ -25,10 +25,12 @@ type
     DBGrid: TDBGrid;
     DataSource: TDataSource;
     PopupMenu: TPopupMenu;
-    Peso1: TMenuItem;
-    Mortes1: TMenuItem;
+    editPesagem: TMenuItem;
+    editMortalidade: TMenuItem;
     Label1: TLabel;
     procedure sBtnAddClick(Sender: TObject);
+    procedure editPesagemClick(Sender: TObject);
+    procedure editMortalidadeClick(Sender: TObject);
   private
     procedure OpenEditLote(id_lote: Integer);
   public
@@ -41,7 +43,20 @@ implementation
 
 {$R *.dfm}
 
-uses Vcl.Loading, Vcl.Navigation, untViewEditLote;
+uses Vcl.Loading, Vcl.Navigation, untViewEditLote, untViewEditMortalidade,
+  untViewEditPesagem;
+
+procedure TfrmViewMain.editMortalidadeClick(Sender: TObject);
+begin
+  TNavigation.ParamInt := 1;
+  TNavigation.OpenModal(TfrmViewEditMortalidade, frmViewEditMortalidade, frmViewMain);
+end;
+
+procedure TfrmViewMain.editPesagemClick(Sender: TObject);
+begin
+  TNavigation.ParamInt := 1;
+  TNavigation.OpenModal(TfrmViewEditPesagem, frmViewEditPesagem, frmViewMain);
+end;
 
 procedure TfrmViewMain.OpenEditLote(id_lote: Integer);
 begin
