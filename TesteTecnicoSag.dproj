@@ -139,6 +139,10 @@
         <DCCReference Include="src\models\untModelPesagem.pas"/>
         <DCCReference Include="src\models\untModelMortalidade.pas"/>
         <DCCReference Include="src\units\Vcl.Loading.pas"/>
+        <DCCReference Include="src\views\bases\edit\untViewEditBase.pas">
+            <Form>frmViewCadBase</Form>
+        </DCCReference>
+        <DCCReference Include="src\units\Vcl.Navigation.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
