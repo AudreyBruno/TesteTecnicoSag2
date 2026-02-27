@@ -14,12 +14,16 @@ type
     sBtnCancel: TSpeedButton;
     pBtnSave: TPanel;
     sBtnSave: TSpeedButton;
-    Label1: TLabel;
+    lblTitle: TLabel;
     procedure sBtnSaveClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure sBtnCancelClick(Sender: TObject);
   private
-    procedure Save;
     procedure TThreadTerminate(Sender: TObject);
+  protected
+    procedure Save; virtual; abstract;
   public
   end;
 
@@ -51,9 +55,35 @@ begin
   Action := caFree;
 end;
 
-procedure TfrmViewCadBase.Save;
+procedure TfrmViewCadBase.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
+  case Key of
+    VK_F4:
+      begin
+        if (ssAlt in Shift) then
+          Key := 0;
 
+        TNavigation.Close(Self);
+      end;
+
+    VK_ESCAPE:
+      begin
+        Key := 0;
+        TNavigation.Close(Self);
+      end;
+  end;
+end;
+
+procedure TfrmViewCadBase.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #27 then
+    Key := #0;
+end;
+
+procedure TfrmViewCadBase.sBtnCancelClick(Sender: TObject);
+begin
+  TNavigation.Close(Self);
 end;
 
 procedure TfrmViewCadBase.sBtnSaveClick(Sender: TObject);

@@ -12,6 +12,26 @@ object frmViewMain: TfrmViewMain
   Font.Style = []
   Position = poScreenCenter
   TextHeight = 15
+  object Label1: TLabel
+    AlignWithMargins = True
+    Left = 3
+    Top = 83
+    Width = 978
+    Height = 15
+    Align = alTop
+    Caption = 
+      'Clique com o bot'#227'o direito do mouse para cadastrar pesagem/morta' +
+      'lidade'
+    Color = clBackground
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = 5197647
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentColor = False
+    ParentFont = False
+    ExplicitWidth = 395
+  end
   object pHeader: TPanel
     Left = 0
     Top = 0
@@ -22,8 +42,6 @@ object frmViewMain: TfrmViewMain
     Color = 16051947
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = -216
-    ExplicitWidth = 1000
     object lblTitle: TLabel
       AlignWithMargins = True
       Left = 8
@@ -61,7 +79,6 @@ object frmViewMain: TfrmViewMain
       Color = 6906591
       ParentBackground = False
       TabOrder = 0
-      ExplicitLeft = 875
       object sBtnDelete: TSpeedButton
         Left = 0
         Top = 0
@@ -98,7 +115,6 @@ object frmViewMain: TfrmViewMain
       Color = 16475988
       ParentBackground = False
       TabOrder = 1
-      ExplicitLeft = 625
       object sBtnAdd: TSpeedButton
         Left = 0
         Top = 0
@@ -114,6 +130,7 @@ object frmViewMain: TfrmViewMain
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
+        OnClick = sBtnAddClick
         ExplicitLeft = 72
         ExplicitTop = 8
         ExplicitWidth = 23
@@ -135,7 +152,6 @@ object frmViewMain: TfrmViewMain
       Color = 16475988
       ParentBackground = False
       TabOrder = 2
-      ExplicitLeft = 750
       object sBtnEdit: TSpeedButton
         Left = 0
         Top = 0
@@ -172,8 +188,6 @@ object frmViewMain: TfrmViewMain
       Color = 16051947
       ParentBackground = False
       TabOrder = 3
-      ExplicitLeft = 177
-      ExplicitWidth = 368
       object pBtnFilter: TPanel
         AlignWithMargins = True
         Left = 331
@@ -189,7 +203,6 @@ object frmViewMain: TfrmViewMain
         Color = 16475988
         ParentBackground = False
         TabOrder = 0
-        ExplicitLeft = 243
         object sBtnFilter: TSpeedButton
           Left = 0
           Top = 0
@@ -229,18 +242,18 @@ object frmViewMain: TfrmViewMain
         Font.Style = []
         ParentFont = False
         TabOrder = 1
-        ExplicitWidth = 243
         ExplicitHeight = 38
       end
     end
   end
   object DBGrid: TDBGrid
     Left = 0
-    Top = 80
+    Top = 101
     Width = 984
-    Height = 481
+    Height = 460
     Align = alClient
     DataSource = DataSource
+    PopupMenu = PopupMenu
     TabOrder = 1
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -251,5 +264,15 @@ object frmViewMain: TfrmViewMain
   object DataSource: TDataSource
     Left = 488
     Top = 288
+  end
+  object PopupMenu: TPopupMenu
+    Left = 648
+    Top = 200
+    object Peso1: TMenuItem
+      Caption = 'Cadastrar Pesagem'
+    end
+    object Mortes1: TMenuItem
+      Caption = 'Cadastrar Mortes'
+    end
   end
 end

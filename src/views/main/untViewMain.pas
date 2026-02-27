@@ -3,9 +3,10 @@ unit untViewMain;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
-  Data.DB, Vcl.Grids, Vcl.DBGrids;
+  Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Menus;
 
 type
   TfrmViewMain = class(TForm)
@@ -23,10 +24,14 @@ type
     edtFilter: TEdit;
     DBGrid: TDBGrid;
     DataSource: TDataSource;
+    PopupMenu: TPopupMenu;
+    Peso1: TMenuItem;
+    Mortes1: TMenuItem;
+    Label1: TLabel;
+    procedure sBtnAddClick(Sender: TObject);
   private
-    { Private declarations }
+    procedure OpenEditLote(id_lote: Integer);
   public
-    { Public declarations }
   end;
 
 var
@@ -36,6 +41,17 @@ implementation
 
 {$R *.dfm}
 
-uses Vcl.Loading;
+uses Vcl.Loading, Vcl.Navigation, untViewEditLote;
+
+procedure TfrmViewMain.OpenEditLote(id_lote: Integer);
+begin
+  TNavigation.ParamInt := id_lote;
+  TNavigation.OpenModal(TfrmViewEditLote, frmViewEditLote, frmViewMain);
+end;
+
+procedure TfrmViewMain.sBtnAddClick(Sender: TObject);
+begin
+  OpenEditLote(0);
+end;
 
 end.

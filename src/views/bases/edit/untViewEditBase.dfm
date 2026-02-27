@@ -3,8 +3,8 @@ object frmViewCadBase: TfrmViewCadBase
   Top = 0
   BorderStyle = bsNone
   Caption = 'frmViewCadBase'
-  ClientHeight = 480
-  ClientWidth = 640
+  ClientHeight = 350
+  ClientWidth = 460
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,12 +13,14 @@ object frmViewCadBase: TfrmViewCadBase
   Font.Style = []
   Position = poMainFormCenter
   OnClose = FormClose
+  OnKeyDown = FormKeyDown
+  OnKeyPress = FormKeyPress
   TextHeight = 15
-  object Label1: TLabel
+  object lblTitle: TLabel
     AlignWithMargins = True
     Left = 8
     Top = 8
-    Width = 624
+    Width = 444
     Height = 36
     Margins.Left = 8
     Margins.Top = 8
@@ -36,15 +38,17 @@ object frmViewCadBase: TfrmViewCadBase
   end
   object pFooter: TPanel
     Left = 0
-    Top = 425
-    Width = 640
+    Top = 295
+    Width = 460
     Height = 55
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitTop = 425
+    ExplicitWidth = 640
     object pBtnCancel: TPanel
       AlignWithMargins = True
-      Left = 390
+      Left = 210
       Top = 8
       Width = 110
       Height = 39
@@ -57,6 +61,7 @@ object frmViewCadBase: TfrmViewCadBase
       Color = 6906591
       ParentBackground = False
       TabOrder = 0
+      ExplicitLeft = 390
       object sBtnCancel: TSpeedButton
         Left = 0
         Top = 0
@@ -72,6 +77,7 @@ object frmViewCadBase: TfrmViewCadBase
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
+        OnClick = sBtnCancelClick
         ExplicitLeft = 72
         ExplicitTop = 8
         ExplicitWidth = 23
@@ -80,7 +86,7 @@ object frmViewCadBase: TfrmViewCadBase
     end
     object pBtnSave: TPanel
       AlignWithMargins = True
-      Left = 515
+      Left = 335
       Top = 8
       Width = 110
       Height = 39
@@ -93,6 +99,7 @@ object frmViewCadBase: TfrmViewCadBase
       Color = 16475988
       ParentBackground = False
       TabOrder = 1
+      ExplicitLeft = 515
       object sBtnSave: TSpeedButton
         Left = 0
         Top = 0

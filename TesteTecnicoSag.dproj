@@ -143,6 +143,10 @@
             <Form>frmViewCadBase</Form>
         </DCCReference>
         <DCCReference Include="src\units\Vcl.Navigation.pas"/>
+        <DCCReference Include="src\views\lote\untViewEditLote.pas">
+            <Form>frmViewEditLote</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
