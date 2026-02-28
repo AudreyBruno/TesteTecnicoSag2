@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, Data.DB, Vcl.Grids, Vcl.DBGrids,
-  Vcl.Menus, FireDAC.Comp.Client;
+  Vcl.Menus, FireDAC.Comp.Client, System.IniFiles;
 
 type
   TfrmViewMain = class(TForm)
@@ -49,6 +49,8 @@ type
     procedure adjustTitles(DataSet: TDataSet);
     procedure TThreadTerminate(Sender: TObject);
     procedure TThreadTerminateDelete(Sender: TObject);
+
+    procedure configDatabase;
   public
   end;
 
@@ -95,6 +97,22 @@ begin
   for i := 0 to DataSet.Fields.Count - 1 do
     DataSet.Fields[i].DisplayLabel :=
       TUtils.formatTitle(DataSet.Fields[i].FieldName);
+end;
+
+procedure TfrmViewMain.configDatabase;
+var
+  Ini: TIniFile;
+begin
+  Ini := TIniFile.Create(ExtractFilePath(Application.ExeName) + 'Config.ini');
+  try
+    DMMain.FDConn.Connected := False;
+    DMMain.FDConn.Params.Database := Ini.ReadString('DATABASE', 'DB', '');
+    DMMain.FDConn.Params.UserName := Ini.ReadString('DATABASE', 'USER', '');
+    DMMain.FDConn.Params.Password := Ini.ReadString('DATABASE', 'PASSWORD', '');
+    DMMain.FDConn.Connected := True;
+  finally
+    Ini.Free;
+  end;
 end;
 
 procedure TfrmViewMain.DBGridDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -144,6 +162,7 @@ end;
 
 procedure TfrmViewMain.FormShow(Sender: TObject);
 begin
+  configDatabase;
   getData;
 end;
 
