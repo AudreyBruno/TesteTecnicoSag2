@@ -1,6 +1,6 @@
 SET TERM ^ ;
 
-create or alter procedure SP_INSERIR_LOTE (
+create or alter procedure SP_INSERIR_ALTERAR_LOTE (
     PID_LOTE integer,
     PDESCRICAO varchar(100),
     PDATA_ENTRADA date,

@@ -3,9 +3,7 @@ object DMMain: TDMMain
   Width = 382
   object FDConn: TFDConnection
     Params.Strings = (
-      
-        'Database=C:\Users\Audrey\Desktop\Projects\TesteTecnicoSag2\datab' +
-        'ase\ABDB.FDB'
+      'Database=C:\Users\Audrey\Desktop\ABDB.FDB'
       'User_Name=SYSDBA'
       'Password=masterkey'
       'DriverID=FB')

@@ -17,10 +17,6 @@ end^
 
 SET TERM ; ^
 
-/* Following GRANT statetements are generated automatically */
-
 GRANT SELECT,DELETE ON TAB_LOTE_AVES TO PROCEDURE SP_EXCLUIR_LOTE;
-
-/* Existing privileges on this procedure */
 
 GRANT EXECUTE ON PROCEDURE SP_EXCLUIR_LOTE TO SYSDBA;
