@@ -49,13 +49,11 @@ type
     procedure adjustTitles(DataSet: TDataSet);
     procedure TThreadTerminate(Sender: TObject);
     procedure TThreadTerminateDelete(Sender: TObject);
-    procedure deleteData;
   public
   end;
 
 var
   frmViewMain: TfrmViewMain;
-  FId_lote: Integer;
 
 implementation
 
@@ -108,7 +106,7 @@ begin
   vlInit := Column.Field.DataSet.FieldByName('quantidade_inicial').AsInteger;
   vlRest := Column.Field.DataSet.FieldByName('quantidade_restante').AsInteger;
 
-  if vlRest <= 0 then
+  if vlRest = vlInit then
     Exit;
 
   percent := 100 - ((vlRest / vlInit) * 100);
@@ -123,34 +121,23 @@ begin
   DBGrid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 end;
 
-procedure TfrmViewMain.deleteData;
-var
-  DAO: TDAOLote;
-  erro: string;
-begin
-  DAO := TDAOLote.Create(DMMain.FDConn);
-
-  try
-    if not DAO.deleteById(FId_lote, erro) then
-    begin
-      raise Exception.Create(erro);
-    end;
-  finally
-    DAO.Free;
-  end;
-end;
-
 procedure TfrmViewMain.editMortalidadeClick(Sender: TObject);
+var
+  id_lote: Integer;
 begin
-  TNavigation.ParamInt := 1;
+  id_lote := DBGrid.DataSource.DataSet.FieldByName('ID_LOTE').AsInteger;
+  TNavigation.ParamInt := id_lote;
   TNavigation.ExecuteOnClose := getData;
   TNavigation.OpenModal(TfrmViewEditMortalidade, frmViewEditMortalidade,
     frmViewMain);
 end;
 
 procedure TfrmViewMain.editPesagemClick(Sender: TObject);
+var
+  id_lote: Integer;
 begin
-  TNavigation.ParamInt := 1;
+  id_lote := DBGrid.DataSource.DataSet.FieldByName('ID_LOTE').AsInteger;
+  TNavigation.ParamInt := id_lote;
   TNavigation.ExecuteOnClose := getData;
   TNavigation.OpenModal(TfrmViewEditPesagem, frmViewEditPesagem, frmViewMain);
 end;
@@ -162,27 +149,30 @@ end;
 
 procedure TfrmViewMain.getData;
 var
-  DAO: TDAOLote;
-  qry: TFDQuery;
   erro: string;
 begin
   TLoading.Show();
 
   TLoading.ExecuteThread(
     procedure
+    var
+      DAO: TDAOLote;
+      qry: TFDQuery;
     begin
       DAO := TDAOLote.Create(DMMain.FDConn);
-
       try
         qry := DAO.getAll(edtFilter.Text, erro);
 
         if erro <> '' then
-        begin
           raise Exception.Create(erro);
-        end;
 
-        DataSource.DataSet := qry;
-        adjustTitles(qry);
+        TThread.Queue(nil,
+          procedure
+          begin
+            DataSource.DataSet := qry;
+            adjustTitles(qry);
+          end);
+
       finally
         DAO.Free;
       end;
@@ -202,20 +192,39 @@ begin
 end;
 
 procedure TfrmViewMain.sBtnDeleteClick(Sender: TObject);
+var
+  DAO: TDAOLote;
+  erro: string;
+  id_lote: Integer;
 begin
-  FId_lote := DBGrid.DataSource.DataSet.FieldByName('ID_LOTE').AsInteger;
-  if MessageDlg('Realmente deseja excluir o lote ' + IntToStr(FId_lote) + '?',
+  id_lote := DBGrid.DataSource.DataSet.FieldByName('ID_LOTE').AsInteger;
+  if MessageDlg('Realmente deseja excluir o lote ' + IntToStr(id_lote) + '?',
     mtConfirmation, [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0) = mrYes then
   begin
     TLoading.Show;
-    TLoading.ExecuteThread(deleteData, TThreadTerminateDelete);
+    TLoading.ExecuteThread(
+      procedure
+      begin
+        DAO := TDAOLote.Create(DMMain.FDConn);
+
+        try
+          if not DAO.deleteById(id_lote, erro) then
+          begin
+            raise Exception.Create(erro);
+          end;
+        finally
+          DAO.Free;
+        end;
+      end, TThreadTerminateDelete);
   end;
 end;
 
 procedure TfrmViewMain.sBtnEditClick(Sender: TObject);
+var
+  id_lote: Integer;
 begin
-  FId_lote := DBGrid.DataSource.DataSet.FieldByName('ID_LOTE').AsInteger;
-  OpenEditLote(FId_lote);
+  id_lote := DBGrid.DataSource.DataSet.FieldByName('ID_LOTE').AsInteger;
+  OpenEditLote(id_lote);
 end;
 
 procedure TfrmViewMain.sBtnFilterClick(Sender: TObject);

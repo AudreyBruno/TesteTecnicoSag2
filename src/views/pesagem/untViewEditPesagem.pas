@@ -18,9 +18,8 @@ type
     edtQtd: TEdit;
     procedure FormShow(Sender: TObject);
   private
-    { Private declarations }
+    procedure Save; override;
   public
-    { Public declarations }
   end;
 
 var
@@ -30,7 +29,36 @@ implementation
 
 {$R *.dfm}
 
-uses Vcl.Navigation;
+uses Vcl.Navigation, untDAOPesagem, untModelPesagem, DataModule.Main;
+
+procedure TfrmViewEditPesagem.Save;
+var
+  DAO: TDAOPesagem;
+  Pesa: TPesagem;
+  erro: string;
+  insert: Boolean;
+begin
+  inherited;
+  DAO := TDAOPesagem.Create(DMMain.FDConn);
+  Pesa := TPesagem.Create;
+
+  try
+    Pesa.IDLote := TNavigation.ParamInt;
+    Pesa.Data := edtDate.Date;
+    Pesa.PesoMedio := StrToFloat(edtPesoMedio.Text);
+    Pesa.Qtd := StrToInt(edtQtd.Text);
+
+    insert := DAO.Save(Pesa, erro);
+
+    if not insert then
+    begin
+      raise Exception.Create(erro);
+    end;
+  finally
+    DAO.Free;
+    Pesa.Free;
+  end;
+end;
 
 procedure TfrmViewEditPesagem.FormShow(Sender: TObject);
 begin

@@ -15,7 +15,9 @@ uses
   untDAOBase in 'src\daos\base\untDAOBase.pas',
   untDAOLote in 'src\daos\lote\untDAOLote.pas',
   DataModule.Main in 'src\datamodule\DataModule.Main.pas' {DMMain: TDataModule},
-  utils in 'src\units\utils.pas';
+  utils in 'src\units\utils.pas',
+  untDAOMortalidade in 'src\daos\mortalidade\untDAOMortalidade.pas',
+  untDAOPesagem in 'src\daos\pesagem\untDAOPesagem.pas';
 
 {$R *.res}
 

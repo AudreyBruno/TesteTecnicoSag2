@@ -18,9 +18,8 @@ type
     edtObs: TEdit;
     procedure FormShow(Sender: TObject);
   private
-    { Private declarations }
+    procedure Save; override;
   public
-    { Public declarations }
   end;
 
 var
@@ -30,7 +29,36 @@ implementation
 
 {$R *.dfm}
 
-uses Vcl.Navigation;
+uses Vcl.Navigation, untModelMortalidade, untDAOMortalidade, DataModule.Main;
+
+procedure TfrmViewEditMortalidade.Save;
+var
+  DAO: TDAOMortalidade;
+  Mort: TMortalidade;
+  erro: string;
+  insert: Boolean;
+begin
+  inherited;
+  DAO := TDAOMortalidade.Create(DMMain.FDConn);
+  Mort := TMortalidade.Create;
+
+  try
+    Mort.IDLote := TNavigation.ParamInt;
+    Mort.Data := edtDate.Date;
+    Mort.Qtd := StrToInt(edtQtd.Text);
+    Mort.Obs := edtObs.Text;
+
+    insert := DAO.Save(Mort, erro);
+
+    if not insert then
+    begin
+      raise Exception.Create(erro);
+    end;
+  finally
+    DAO.Free;
+    Mort.Free;
+  end;
+end;
 
 procedure TfrmViewEditMortalidade.FormShow(Sender: TObject);
 begin

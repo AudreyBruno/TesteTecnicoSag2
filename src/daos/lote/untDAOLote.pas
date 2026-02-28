@@ -136,9 +136,14 @@ begin
     qry := TFDQuery.Create(nil);
     qry.Connection := FConn;
 
-    qry.sql.Text := 'SELECT l.*, l.quantidade_inicial - m.quantidade_morta' +
-      ' AS quantidade_restante FROM tab_lote_aves l' +
-      ' LEFT JOIN tab_mortalidade m ON l.id_lote = m.id_lote_fk';
+    qry.sql.Text :=
+      'SELECT l.*, l.quantidade_inicial - COALESCE(m.total_morta, 0)' +
+      ' AS quantidade_restante, p.peso_medio FROM tab_lote_aves l' +
+      ' LEFT JOIN (SELECT id_lote_fk, SUM(quantidade_morta) AS total_morta' +
+      ' FROM tab_mortalidade GROUP BY id_lote_fk) m' +
+      ' ON m.id_lote_fk = l.id_lote LEFT JOIN (SELECT id_lote_fk,' +
+      ' AVG(peso_medio) AS peso_medio FROM tab_pesagem GROUP BY id_lote_fk)' +
+      ' p ON p.id_lote_fk = l.id_lote';
 
     if AValue <> '' then
     begin

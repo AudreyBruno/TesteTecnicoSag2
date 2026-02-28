@@ -163,6 +163,8 @@
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="src\units\utils.pas"/>
+        <DCCReference Include="src\daos\mortalidade\untDAOMortalidade.pas"/>
+        <DCCReference Include="src\daos\pesagem\untDAOPesagem.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
